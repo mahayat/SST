@@ -8,7 +8,7 @@ function [sst, tfr, frequency] = SST_J(x, Fs, hlength, hop, n, hf, lf, ths)
 %    n      :  Number of pixels in the frequency axis.
 %    lf     :  Crop output to display only frequencies larger than lf.
 %    hf     :  Crop output to display only frequencies less than hf.
-%    ths    :  Fraction of values to reassign. 
+%    ths    :  Fraction of values to reassign.      
 % OUTPUT
 %    sst    :  The SST of the signal x. 
 %    tfr    :  The STFT of the signal x.
@@ -59,21 +59,21 @@ squeeze_flag = 1;
 
 % organize input
 x = x(:);
-if any(isnan(x))
-    x = interp1(find(~isnan(x)), x(~isnan(x)), 1:length(x), 'pchip', 'extrap')';
-end
+% if any(isnan(x))
+%     x = interp1(find(~isnan(x)), x(~isnan(x)), 1:length(x), 'pchip', 'extrap')';
+% end
 
 % time (samples)
 NN = length(x);
-t = 1:hop:NN;
+t = 1:hop:NN; % hop Calculate the fft every hop samples, starting at 1
 [~, tcol] = size(t);
 
 % N-point fft
-n = n + 1 - rem(n, 2);
+n = n + 1 - rem(n, 2); % n Number of pixels in the frequency axis.
 N = 2 * (n - 1);
 
 % make sure window length is odd
-hlength = hlength + 1 - rem(hlength, 2);
+hlength = hlength + 1 - rem(hlength, 2); % hlength Window length (in samples).
 Lh = (hlength - 1) / 2;
 
 % gaussian window and its derivative

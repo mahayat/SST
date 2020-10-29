@@ -1,4 +1,4 @@
-clear ; close all ;
+clear; close all; clc; 
 
 addpath('./tool') ;
 
@@ -68,10 +68,10 @@ time = [1/Hz:1/Hz:L]' ;
 subplot(1,2,1) ;
 imageSQ(time, tfrsqtic*Hz, log(1+abs(tfrsq))) ; colormap(1-gray) ;
 set(gca,'fontsize', 20) ; xlabel('Time (sec)') ; ylabel('Frequency (Hz)') ;
-title('SST on STFT\newline(displayed in the log scale)') ;
+% title('SST on STFT\newline(displayed in the log scale)') ; %mahayat
 
 subplot(1,2,2) ;
 imageSQ(time, tfrsqtic*Hz, abs(tfrsq)) ; colormap(1-gray) ;
 set(gca,'fontsize', 20) ; xlabel('Time (sec)') ; ylabel('Frequency (Hz)') ;
-title('SST on STFT\newline(displayed in the linear scale)') ;
+% title('SST on STFT\newline(displayed in the linear scale)') ; %mahayat
 
