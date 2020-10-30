@@ -69,8 +69,8 @@ t = 1:hop:NN; % hop Calculate the fft every hop samples, starting at 1
 [~, tcol] = size(t);
 
 % N-point fft
-n = n + 1 - rem(n, 2); % n Number of pixels in the frequency axis.
-N = 2 * (n - 1);
+n = n + 1 - rem(n, 2); % n Number of pixels in the frequency axis. % n is odd
+N = 2 * (n - 1); % (n-1) is even
 
 % make sure window length is odd
 hlength = hlength + 1 - rem(hlength, 2); % hlength Window length (in samples).

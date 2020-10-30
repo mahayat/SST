@@ -1,18 +1,36 @@
-% imageSQ.m
-%
-% Display time-frequency result of the Synchrosqueezing transform and others
-% function imageSQ(t, ytic, M) ;
-%
-function imageSQ(t, ytic, M)
+function imageSQ(M, y, h, l)
+% IMAGESQ Displays the time-frequency representation M as a black and white
+% image. A clipping effect is used to normalize M.
+% INPUT
+%      M    : Time-frequency representation to be visualized.
+%      y    : Frequency axis.
+%      h    : Range above which to clip, a number in (0, 1], e.g. 0.995
+%      l    : Discard numbers below this quantile (default = 0).
+% Written by John Malik on 2018.6.22, john.malik@duke.edu.
 
-fz = 20;
+switch nargin
+    case 1
+        y = 1;
+        h = 1;
+        l = 0;
+    case 2
+        h = 1;
+        l = 0;
+    case 3
+        l = 0;
+end
 
-S = size(M);
-Q = M(:);
-q = quantile(Q, 0.998);
-M(find(M>q)) = q;
+q = quantile(M(:), [h, l]);
+M(M > q(1)) = q(1);
+M(M < q(2)) = 0;
 
-imagesc(t, ytic, M)
-axis xy ;
-set(gca, 'fontsize', fz);
+h = get(groot, 'defaultAxesTickLabelInterpreter');
+set(groot, 'defaultAxesTickLabelInterpreter', 'latex');
+
+imagesc(1, y, M)
+axis xy
+colormap(1 - gray)
+
+set(groot, 'defaultAxesTickLabelInterpreter', h);
+
 end
